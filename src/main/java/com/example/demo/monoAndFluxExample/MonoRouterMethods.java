@@ -9,7 +9,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class MonoRouter {
+public class MonoRouterMethods {
 
     @Bean
     public RouterFunction<ServerResponse> monoRouter(MonoHandler handler) {
@@ -39,6 +39,7 @@ public class MonoRouter {
                 .andRoute(GET("/mono/filter"), request -> ServerResponse.ok().body(handler.monoFilter(), String.class))
                 .andRoute(GET("/mono/log"), request -> ServerResponse.ok().body(handler.monoLog(), String.class));
     }
+
 }
 
 
