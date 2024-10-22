@@ -33,7 +33,16 @@ public class MonoHandler {
     }
 
     public Mono<String> monoFromFuture() {
-        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> "Future result");
+        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+            // Simulate a long-running operation
+            try {
+                Thread.sleep(1000); // Simulate delay
+            } catch (InterruptedException e) {
+                throw new RuntimeException("Task interrupted");
+            }
+            return "Future result";
+        });
+
         return Mono.fromFuture(future);
     }
 

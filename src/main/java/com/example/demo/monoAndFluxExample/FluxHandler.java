@@ -31,25 +31,25 @@ public class FluxHandler {
 
     // Returns a Flux from an Iterable
     public Flux<String> fluxFromIterable() {
-        List<String> items = Arrays.asList("Item 1", "Item 2", "Item 3");
+        List<String> items = Arrays.asList("Item 1 ", " Item 2", " Item 3");
         return Flux.fromIterable(items);
     }
 
     // Returns a Flux from a Stream
     public Flux<String> fluxFromStream() {
-        return Flux.fromStream(Arrays.asList("Stream Item 1", "Stream Item 2", "Stream Item 3").stream());
+        return Flux.fromStream(Arrays.asList("Stream Item 1, ", "Stream Item 2, ", "Stream Item 3").stream());
     }
 
     // Maps values in the Flux
     public Flux<String> fluxMap() {
-        return Flux.just("apple", "banana", "cherry")
+        return Flux.just("apple, ", "banana, ", "cherry")
                 .map(String::toUpperCase); // Transforms to uppercase
     }
 
     // Flat maps values in the Flux
     public Flux<String> fluxFlatMap() {
         return Flux.just("A", "B", "C")
-                .flatMap(letter -> Flux.just(letter + "1", letter + "2", letter + "3")); // Creates multiple items from each letter
+                .flatMap(letter -> Flux.just(letter + "1 ", letter + "2 ", letter + "3 ")); // Creates multiple items from each letter
     }
 
     // Merges two Flux streams
@@ -87,7 +87,7 @@ public class FluxHandler {
 
     // Blocks to get the first item (not recommended in reactive programming)
     public String fluxBlock() {
-        return Flux.just("One", "Two", "Three").blockFirst(); // Blocks until the first item is available
+        return Flux.just("One", "Two", "Three").blockLast(); // Blocks until the first item is available
     }
 
     // Subscribes to the Flux (demonstrating subscription)
@@ -223,13 +223,13 @@ public class FluxHandler {
     // Returns a Flux with a timeout
     public Flux<String> fluxTimeout() {
         return Flux.just("A", "B", "C")
-                .delayElements(Duration.ofSeconds(1))
+                .delayElements(Duration.ofSeconds(2))
                 .timeout(Duration.ofSeconds(2)); // Times out if no elements are emitted within 2 seconds
     }
 
     public Flux<String> fluxExpandDeep() {
         return Flux.just("A")
-                .expandDeep(letter -> Flux.just(letter + "1", letter + "2").delayElements(Duration.ofSeconds(1)))
+                .expandDeep(letter -> Flux.just(letter + "1 ", letter + "2").delayElements(Duration.ofSeconds(1)))
                 .take(10); // Limits the output to the first 10 items to prevent infinite expansion
     }
     public Flux<String> fluxExpand() {
